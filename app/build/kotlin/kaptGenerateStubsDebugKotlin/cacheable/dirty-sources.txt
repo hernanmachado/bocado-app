@@ -1,0 +1,17 @@
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/model/Models.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/data/BocadoDatabase.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/viewmodel/CartViewModel.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/ui/theme/Theme.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/ui/screens/CartScreen.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/ui/screens/PaymentScreen.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/viewmodel/MenuViewModel.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/data/api/ApiClient.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/data/Daos.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/MainActivity.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/data/Converters.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/ui/screens/MenuScreen.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/viewmodel/PaymentViewModel.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/util/MockData.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/repository/Repositories.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/ui/screens/SplashScreen.kt
+/home/hernan/Descargas/BOCADO/app/src/main/java/com/bocado/data/api/BocadoApi.kt

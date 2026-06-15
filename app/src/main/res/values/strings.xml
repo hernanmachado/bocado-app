@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BOCADO</string>
+    <string name="app_description">Sistema de Gestión de Pedidos para Restaurantes</string>
+
+    <!-- Menu Screen -->
+    <string name="menu_title">Menú BOCADO</string>
+    <string name="cart_empty">Carrito vacío</string>
+    <string name="add_to_cart">Agregar al carrito</string>
+    <string name="out_of_stock">Sin stock</string>
+
+    <!-- Cart Screen -->
+    <string name="cart_title">Carrito de Compras</string>
+    <string name="confirm_order">Confirmar Pedido</string>
+    <string name="order_confirmed">¡Pedido Confirmado!</string>
+
+    <!-- Payment Screen -->
+    <string name="payment_title">Realizar Pago</string>
+    <string name="payment_amount">Monto a Pagar</string>
+    <string name="confirm_payment">Confirmar Pago</string>
+    <string name="payment_success">¡Pago Exitoso!</string>
+    <string name="card_number">Número de Tarjeta</string>
+    <string name="expiry_date">MM/YY</string>
+    <string name="cvv">CVV</string>
+    <string name="holder_name">Titular de la Tarjeta</string>
+
+    <!-- General -->
+    <string name="loading">Cargando...</string>
+    <string name="error">Error</string>
+    <string name="retry">Reintentar</string>
+    <string name="back">Volver</string>
+</resources>

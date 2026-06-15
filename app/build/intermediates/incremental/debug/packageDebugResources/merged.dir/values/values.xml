@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="bocado_black">#1A1A1A</color>
+    <color name="bocado_gray">#808080</color>
+    <color name="bocado_green">#66BB6A</color>
+    <color name="bocado_light_gray">#F5F5F5</color>
+    <color name="bocado_orange">#FF6B42</color>
+    <color name="bocado_red">#E63946</color>
+    <color name="gray">#808080</color>
+    <color name="white">#FFFFFF</color>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="corner_radius_large">12dp</dimen>
+    <dimen name="corner_radius_medium">8dp</dimen>
+    <dimen name="corner_radius_small">4dp</dimen>
+    <dimen name="icon_size_large">48dp</dimen>
+    <dimen name="icon_size_medium">32dp</dimen>
+    <dimen name="icon_size_small">24dp</dimen>
+    <dimen name="padding_extra_large">32dp</dimen>
+    <dimen name="padding_large">24dp</dimen>
+    <dimen name="padding_medium">16dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="text_size_body">14sp</dimen>
+    <dimen name="text_size_headline">24sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_subtitle">16sp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
+    <string name="add_to_cart">Agregar al carrito</string>
+    <string name="app_description">Sistema de Gestión de Pedidos para Restaurantes</string>
+    <string name="app_name">BOCADO</string>
+    <string name="back">Volver</string>
+    <string name="card_number">Número de Tarjeta</string>
+    <string name="cart_empty">Carrito vacío</string>
+    <string name="cart_title">Carrito de Compras</string>
+    <string name="confirm_order">Confirmar Pedido</string>
+    <string name="confirm_payment">Confirmar Pago</string>
+    <string name="cvv">CVV</string>
+    <string name="error">Error</string>
+    <string name="expiry_date">MM/YY</string>
+    <string name="holder_name">Titular de la Tarjeta</string>
+    <string name="loading">Cargando...</string>
+    <string name="menu_title">Menú BOCADO</string>
+    <string name="order_confirmed">¡Pedido Confirmado!</string>
+    <string name="out_of_stock">Sin stock</string>
+    <string name="payment_amount">Monto a Pagar</string>
+    <string name="payment_success">¡Pago Exitoso!</string>
+    <string name="payment_title">Realizar Pago</string>
+    <string name="retry">Reintentar</string>
+    <style name="Theme.BOCADO" parent="android:Theme.Material.Light.DarkActionBar">
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/gray</item>
+        <item name="android:colorPrimary">@color/bocado_orange</item>
+        <item name="android:colorAccent">@color/bocado_orange</item>
+    </style>
+</resources>
