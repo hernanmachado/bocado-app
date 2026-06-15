@@ -6,22 +6,22 @@
 
 **BOCADO** es una aplicación mobile innovadora desarrollada para restaurantes que necesitan un sistema eficiente y moderno de gestión de pedidos basado en códigos QR.
 
-## 🎯 Características Principales
+## Características Principales
 
 ### Para Clientes
-- 📱 **Escaneo de QR** - Acceso rápido al menú digital
-- 🍽️ **Menú Digital Interactivo** - Visualización de platos con fotos y descripciones
-- 🛒 **Carrito Inteligente** - Gestión fácil de pedidos
-- 💳 **Múltiples Métodos de Pago** - Tarjeta, efectivo, billetera digital
-- ✅ **Confirmación Instantánea** - Recibo digital del pedido
+- **Escaneo de QR** - Acceso rápido al menú digital
+- **Menú Digital Interactivo** - Visualización de platos con fotos y descripciones
+- **Carrito Inteligente** - Gestión fácil de pedidos
+- **Múltiples Métodos de Pago** - Tarjeta, efectivo, billetera digital
+- **Confirmación Instantánea** - Recibo digital del pedido
 
 ### Para Restaurantes
-- 📊 **Control de Stock** - Gestión automática de inventario
-- ⏱️ **Órdenes en Tiempo Real** - Cocina recibe pedidos al instante
-- 📈 **Análisis de Ventas** - Datos de comportamiento del cliente
-- 🔐 **Seguridad** - Transacciones encriptadas
+- **Control de Stock** - Gestión automática de inventario
+- **Órdenes en Tiempo Real** - Cocina recibe pedidos al instante
+- **Análisis de Ventas** - Datos de comportamiento del cliente
+- **Seguridad** - Transacciones encriptadas
 
-## 🏗️ Arquitectura
+## Arquitectura
 
 ```
 ┌──────────────────────────┐
@@ -40,7 +40,7 @@
 **Base de Datos:** Room (SQLite)
 **API REST:** Retrofit + Gson
 
-## 📋 Requisitos
+## Requisitos
 
 - Android Studio Flamingo o superior
 - Kotlin 1.9.10
@@ -48,7 +48,7 @@
 - SDK mínimo: API 24 (Android 7.0)
 - SDK destino: API 34 (Android 14)
 
-## 🚀 Instalación
+## Instalación
 
 ### 1. Clonar el Repositorio
 ```bash
@@ -79,7 +79,7 @@ gradlew.bat build
 # O usar Android Studio: Run → Run 'app'
 ```
 
-## 📱 Uso de la Aplicación
+## Uso de la Aplicación
 
 ### Pantalla de Bienvenida
 1. Abre BOCADO
@@ -104,7 +104,7 @@ gradlew.bat build
 3. Presiona "Confirmar Pago"
 4. Recibe confirmación con número de pedido
 
-## 🏠 Estructura del Proyecto
+## Estructura del Proyecto
 
 ```
 BOCADO/
@@ -149,7 +149,7 @@ BOCADO/
 └── DOCUMENTACION_TECNICA.md
 ```
 
-## 🎨 Diseño Visual
+## Diseño Visual
 
 ### Paleta de Colores (Según Figma)
 - **Primario:** `#FF6B42` (Naranja BOCADO)
@@ -170,7 +170,7 @@ BOCADO/
 - Rounded Corners: 8-12dp
 - Spacing: 8dp, 16dp, 24dp, 32dp
 
-## 🔄 Flujo de Navegación
+## Flujo de Navegación
 
 ```
 ┌─────────────┐
@@ -194,7 +194,7 @@ BOCADO/
                   └─────────────┘
 ```
 
-## 📊 Modelos de Datos
+## Modelos de Datos
 
 ### Dish (Plato)
 ```kotlin
@@ -228,25 +228,25 @@ status: String           // PENDING, APPROVED, REJECTED
 transactionId: String    // ID de transacción
 ```
 
-## ✅ Validaciones de Negocio
+## Validaciones de Negocio
 
 ### Stock
-- ✅ No permite agregar cantidad mayor al stock disponible
-- ✅ Stock se decrementa solo al aprobar el pago
-- ✅ Muestra alerta si stock es bajo
+- No permite agregar cantidad mayor al stock disponible
+- Stock se decrementa solo al aprobar el pago
+- Muestra alerta si stock es bajo
 
 ### Pedidos
-- ✅ Requiere nombre de cliente
-- ✅ Número de mesa válido (> 0)
-- ✅ No permite pedido vacío
+- Requiere nombre de cliente
+- Número de mesa válido (> 0)
+- No permite pedido vacío
 
 ### Pagos
-- ✅ Tarjeta: 16 dígitos
-- ✅ Fecha expiración: MM/YY válida
-- ✅ CVV: 3 dígitos
-- ✅ Monto: mayor a 0
+- Tarjeta: 16 dígitos
+- Fecha expiración: MM/YY válida
+- CVV: 3 dígitos
+- Monto: mayor a 0
 
-## 🧪 Pruebas
+## Pruebas
 
 ### Ejecutar Pruebas Unitarias
 ```bash
@@ -254,13 +254,13 @@ transactionId: String    // ID de transacción
 ```
 
 ### Pruebas Incluidas
-- ✅ Creación de modelos
-- ✅ Cálculos de totales
-- ✅ Validaciones de negocio
-- ✅ Transiciones de estado
-- ✅ Validaciones de tarjeta
+- Creación de modelos
+- Cálculos de totales
+- Validaciones de negocio
+- Transiciones de estado
+- Validaciones de tarjeta
 
-## 📡 API REST
+## API REST
 
 ### Base URL
 ```
@@ -289,22 +289,22 @@ POST   /api/v1/payments            - Procesar pago
 GET    /api/v1/payments/:orderId   - Ver estado
 ```
 
-## 🔐 Seguridad
+## Seguridad
 
-- ✅ Validación de datos de entrada
-- ✅ HTTPS para todas las peticiones
-- ✅ Encriptación de datos sensibles
-- ✅ Manejo seguro de CVV (no se persiste)
-- ✅ Tokens de autorización (futuro)
+- Validación de datos de entrada
+- HTTPS para todas las peticiones
+- Encriptación de datos sensibles
+- Manejo seguro de CVV (no se persiste)
+- Tokens de autorización (futuro)
 
-## 📈 Performance
+## Performance
 
 - **Cold Start:** < 2.5 segundos
 - **Scroll Fluido:** > 54 fps
 - **Carga de Imagen:** Lazy loading
 - **BD Local:** Caché offline-first
 
-## 🛠️ Stack Tecnológico
+## Stack Tecnológico
 
 ### Lenguaje
 - Kotlin 1.9.10
@@ -325,7 +325,7 @@ GET    /api/v1/payments/:orderId   - Ver estado
 - Room (SQLite)
 - DataStore (Preferences)
 
-## 🚧 Mejoras Futuras
+## Mejoras Futuras
 
 - [ ] Autenticación de usuarios
 - [ ] Historial de pedidos
@@ -338,24 +338,24 @@ GET    /api/v1/payments/:orderId   - Ver estado
 - [ ] Dashboard de administrador
 - [ ] Analytics avanzados
 
-## 👥 Equipo
+## Equipo
 
 **Equipo 3 - IFTS 18**
 - **Nahuel David Díaz Zapata** - Backend/Data
 - **Victoria Escobar Quarin** - UI/UX
 - **Hernán Machado** - Arquitectura/DevOps
 
-## 📄 Licencia
+## Licencia
 
 Este proyecto está bajo licencia MIT. Ver archivo `LICENSE` para más detalles.
 
-## 📞 Contacto y Soporte
+## Contacto y Soporte
 
-- 📧 Email: bocado@ifts18.edu.ar
-- 🐙 GitHub: [BOCADO Repository](https://github.com/tu-usuario/bocado)
-- 📱 WhatsApp: +54 11 XXXX-XXXX
+- Email: bocado@ifts18.edu.ar
+- GitHub: [BOCADO Repository](https://github.com/tu-usuario/bocado)
+- WhatsApp: +54 11 XXXX-XXXX
 
-## 📚 Documentación Completa
+## Documentación Completa
 
 Para documentación técnica detallada, ver:
 - [DOCUMENTACION_TECNICA.md](./DOCUMENTACION_TECNICA.md)
@@ -364,7 +364,7 @@ Para documentación técnica detallada, ver:
 ---
 
 **Versión:** 1.0.0
-**Última actualización:** Junio 2024
-**Estado:** En desarrollo - H1 completado ✅
+**Última actualización:** Junio 2026
+**Estado:** En desarrollo - H1 completado 
 
-¡Gracias por usar BOCADO! 🍽️
+¡Gracias por usar BOCADO! 
