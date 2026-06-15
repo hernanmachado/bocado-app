@@ -43,12 +43,12 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `dishes` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `price` REAL NOT NULL, `stock` INTEGER NOT NULL, `imageUrl` TEXT NOT NULL, `category` TEXT NOT NULL, `isAvailable` INTEGER NOT NULL, `created_at` TEXT NOT NULL, PRIMARY KEY(`id`))");
-        db.execSQL("CREATE TABLE IF NOT EXISTS `orders` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `clientName` TEXT NOT NULL, `tableNumber` INTEGER NOT NULL, `totalAmount` REAL NOT NULL, `status` TEXT NOT NULL, `paymentMethod` TEXT, `items` TEXT NOT NULL, `created_at` TEXT NOT NULL, `qrCode` TEXT)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `orders` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `clientName` TEXT, `tableNumber` INTEGER NOT NULL, `totalAmount` REAL NOT NULL, `status` TEXT NOT NULL, `paymentMethod` TEXT, `items` TEXT NOT NULL, `created_at` TEXT, `qrCode` TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `order_items` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dishId` INTEGER NOT NULL, `dishName` TEXT NOT NULL, `quantity` INTEGER NOT NULL, `unitPrice` REAL NOT NULL, `subtotal` REAL NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `payments` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orderId` INTEGER NOT NULL, `amount` REAL NOT NULL, `paymentMethod` TEXT NOT NULL, `status` TEXT NOT NULL, `transactionId` TEXT, `created_at` TEXT NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `restaurants` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `location` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `logoUrl` TEXT NOT NULL, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '979f3e56e926f89a40c63b1cd423ae72')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bfc0bcebb70b3ed773dbb732b790a1ea')");
       }
 
       @Override
@@ -122,13 +122,13 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
         }
         final HashMap<String, TableInfo.Column> _columnsOrders = new HashMap<String, TableInfo.Column>(9);
         _columnsOrders.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsOrders.put("clientName", new TableInfo.Column("clientName", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsOrders.put("clientName", new TableInfo.Column("clientName", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsOrders.put("tableNumber", new TableInfo.Column("tableNumber", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsOrders.put("totalAmount", new TableInfo.Column("totalAmount", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsOrders.put("status", new TableInfo.Column("status", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsOrders.put("paymentMethod", new TableInfo.Column("paymentMethod", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsOrders.put("items", new TableInfo.Column("items", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsOrders.put("created_at", new TableInfo.Column("created_at", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsOrders.put("created_at", new TableInfo.Column("created_at", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsOrders.put("qrCode", new TableInfo.Column("qrCode", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysOrders = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesOrders = new HashSet<TableInfo.Index>(0);
@@ -190,7 +190,7 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "979f3e56e926f89a40c63b1cd423ae72", "ec9d443b8a95cbe8924e27c77c2ad883");
+    }, "bfc0bcebb70b3ed773dbb732b790a1ea", "20458621f4d3014bd95a2f8a06462f04");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

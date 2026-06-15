@@ -59,7 +59,11 @@ public final class OrderDao_Impl implements OrderDao {
       protected void bind(@NonNull final SupportSQLiteStatement statement,
           @NonNull final Order entity) {
         statement.bindLong(1, entity.getId());
-        statement.bindString(2, entity.getClientName());
+        if (entity.getClientName() == null) {
+          statement.bindNull(2);
+        } else {
+          statement.bindString(2, entity.getClientName());
+        }
         statement.bindLong(3, entity.getTableNumber());
         statement.bindDouble(4, entity.getTotalAmount());
         statement.bindString(5, entity.getStatus());
@@ -70,7 +74,11 @@ public final class OrderDao_Impl implements OrderDao {
         }
         final String _tmp = __converters.fromOrderItemList(entity.getItems());
         statement.bindString(7, _tmp);
-        statement.bindString(8, entity.getCreatedAt());
+        if (entity.getCreatedAt() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindString(8, entity.getCreatedAt());
+        }
         if (entity.getQrCode() == null) {
           statement.bindNull(9);
         } else {
@@ -102,7 +110,11 @@ public final class OrderDao_Impl implements OrderDao {
       protected void bind(@NonNull final SupportSQLiteStatement statement,
           @NonNull final Order entity) {
         statement.bindLong(1, entity.getId());
-        statement.bindString(2, entity.getClientName());
+        if (entity.getClientName() == null) {
+          statement.bindNull(2);
+        } else {
+          statement.bindString(2, entity.getClientName());
+        }
         statement.bindLong(3, entity.getTableNumber());
         statement.bindDouble(4, entity.getTotalAmount());
         statement.bindString(5, entity.getStatus());
@@ -113,7 +125,11 @@ public final class OrderDao_Impl implements OrderDao {
         }
         final String _tmp = __converters.fromOrderItemList(entity.getItems());
         statement.bindString(7, _tmp);
-        statement.bindString(8, entity.getCreatedAt());
+        if (entity.getCreatedAt() == null) {
+          statement.bindNull(8);
+        } else {
+          statement.bindString(8, entity.getCreatedAt());
+        }
         if (entity.getQrCode() == null) {
           statement.bindNull(9);
         } else {
@@ -239,7 +255,11 @@ public final class OrderDao_Impl implements OrderDao {
             final int _tmpId;
             _tmpId = _cursor.getInt(_cursorIndexOfId);
             final String _tmpClientName;
-            _tmpClientName = _cursor.getString(_cursorIndexOfClientName);
+            if (_cursor.isNull(_cursorIndexOfClientName)) {
+              _tmpClientName = null;
+            } else {
+              _tmpClientName = _cursor.getString(_cursorIndexOfClientName);
+            }
             final int _tmpTableNumber;
             _tmpTableNumber = _cursor.getInt(_cursorIndexOfTableNumber);
             final double _tmpTotalAmount;
@@ -257,7 +277,11 @@ public final class OrderDao_Impl implements OrderDao {
             _tmp = _cursor.getString(_cursorIndexOfItems);
             _tmpItems = __converters.toOrderItemList(_tmp);
             final String _tmpCreatedAt;
-            _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            if (_cursor.isNull(_cursorIndexOfCreatedAt)) {
+              _tmpCreatedAt = null;
+            } else {
+              _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            }
             final String _tmpQrCode;
             if (_cursor.isNull(_cursorIndexOfQrCode)) {
               _tmpQrCode = null;
@@ -307,7 +331,11 @@ public final class OrderDao_Impl implements OrderDao {
             final int _tmpId;
             _tmpId = _cursor.getInt(_cursorIndexOfId);
             final String _tmpClientName;
-            _tmpClientName = _cursor.getString(_cursorIndexOfClientName);
+            if (_cursor.isNull(_cursorIndexOfClientName)) {
+              _tmpClientName = null;
+            } else {
+              _tmpClientName = _cursor.getString(_cursorIndexOfClientName);
+            }
             final int _tmpTableNumber;
             _tmpTableNumber = _cursor.getInt(_cursorIndexOfTableNumber);
             final double _tmpTotalAmount;
@@ -325,7 +353,11 @@ public final class OrderDao_Impl implements OrderDao {
             _tmp = _cursor.getString(_cursorIndexOfItems);
             _tmpItems = __converters.toOrderItemList(_tmp);
             final String _tmpCreatedAt;
-            _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            if (_cursor.isNull(_cursorIndexOfCreatedAt)) {
+              _tmpCreatedAt = null;
+            } else {
+              _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            }
             final String _tmpQrCode;
             if (_cursor.isNull(_cursorIndexOfQrCode)) {
               _tmpQrCode = null;
@@ -372,7 +404,11 @@ public final class OrderDao_Impl implements OrderDao {
             final int _tmpId;
             _tmpId = _cursor.getInt(_cursorIndexOfId);
             final String _tmpClientName;
-            _tmpClientName = _cursor.getString(_cursorIndexOfClientName);
+            if (_cursor.isNull(_cursorIndexOfClientName)) {
+              _tmpClientName = null;
+            } else {
+              _tmpClientName = _cursor.getString(_cursorIndexOfClientName);
+            }
             final int _tmpTableNumber;
             _tmpTableNumber = _cursor.getInt(_cursorIndexOfTableNumber);
             final double _tmpTotalAmount;
@@ -390,7 +426,11 @@ public final class OrderDao_Impl implements OrderDao {
             _tmp = _cursor.getString(_cursorIndexOfItems);
             _tmpItems = __converters.toOrderItemList(_tmp);
             final String _tmpCreatedAt;
-            _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            if (_cursor.isNull(_cursorIndexOfCreatedAt)) {
+              _tmpCreatedAt = null;
+            } else {
+              _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            }
             final String _tmpQrCode;
             if (_cursor.isNull(_cursorIndexOfQrCode)) {
               _tmpQrCode = null;

@@ -39,15 +39,15 @@ data class OrderItem(
 @Entity(tableName = "orders")
 data class Order(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val clientName: String,
-    val tableNumber: Int,
-    val totalAmount: Double,
-    val status: String = "PENDING", // PENDING, CONFIRMED, PAID, PREPARING, COMPLETED
+    val clientName: String? = null,
+    val tableNumber: Int = 0,
+    val totalAmount: Double = 0.0,
+    val status: String = "PENDING",
     val paymentMethod: String? = null,
     val items: List<OrderItem> = emptyList(),
     @ColumnInfo(name = "created_at")
     @SerializedName("created_at")
-    val createdAt: String = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(Date()),
+    val createdAt: String? = null,
     val qrCode: String? = null
 )
 
