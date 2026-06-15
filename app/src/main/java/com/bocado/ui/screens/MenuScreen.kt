@@ -42,11 +42,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.bocado.model.Dish
 import com.bocado.ui.theme.BocadoGreen
 import com.bocado.ui.theme.BocadoGray
@@ -167,10 +170,8 @@ fun MenuScreen(
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    // Categorías
                     CategoriesRow(menuViewModel)
 
-                    // Grid de platos
                     LazyColumn(
                         modifier = Modifier
                             .fillMaxSize()
@@ -200,7 +201,7 @@ fun MenuScreen(
 @Composable
 private fun CategoriesRow(menuViewModel: MenuViewModel) {
     val categories = listOf("Todos", "Entradas", "Platos Principales", "Postres", "Bebidas")
-    
+
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -249,15 +250,16 @@ private fun DishCard(dish: Dish, onAddToCart: (Int) -> Unit) {
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Row(modifier = Modifier.fillMaxWidth()) {
-                // Imagen placeholder
-                Box(
+
+                // Imagen desde URL
+                AsyncImage(
+                    model = dish.imageUrl,
+                    contentDescription = dish.name,
                     modifier = Modifier
                         .size(100.dp)
-                        .background(BocadoLightGray, RoundedCornerShape(8.dp)),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text("Foto", style = MaterialTheme.typography.bodySmall)
-                }
+                        .clip(RoundedCornerShape(8.dp)),
+                    contentScale = ContentScale.Crop
+                )
 
                 Spacer(modifier = Modifier.width(12.dp))
 
@@ -308,7 +310,6 @@ private fun DishCard(dish: Dish, onAddToCart: (Int) -> Unit) {
                 }
             }
 
-            // Controles de cantidad y botón agregar
             Spacer(modifier = Modifier.height(12.dp))
 
             Row(
@@ -379,3 +380,4 @@ private fun DishCard(dish: Dish, onAddToCart: (Int) -> Unit) {
         }
     }
 }
+

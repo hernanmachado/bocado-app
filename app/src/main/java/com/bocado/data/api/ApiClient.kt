@@ -8,7 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 object ApiClient {
-    private const val BASE_URL = "https://bocado-backend.onrender.com" // URL RENDER ACA NAHUE CAMBIA AL TUYO
+    private const val BASE_URL = "https://bocado-backend.onrender.com/" // URL RENDER ACA NAHUE CAMBIA AL TUYO
 
     private val gson = GsonBuilder()
         .setDateFormat("yyyy-MM-dd'T'HH:mm:ss")

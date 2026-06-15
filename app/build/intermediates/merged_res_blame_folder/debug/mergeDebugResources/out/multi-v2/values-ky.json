@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.bocado.app-mergeDebugResources-56:/values-ky/values-ky.xml",
+            "outputFile": "com.bocado.app-mergeDebugResources-58:/values-ky/values-ky.xml",
             "map": [
                 {
                     "source": "/home/hernan/.gradle/caches/8.13/transforms/a734318cfe9fc8c5ea2f35a0b1ecb3be/transformed/core-1.12.0/res/values-ky/values-ky.xml",

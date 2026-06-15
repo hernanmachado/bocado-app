@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.bocado.app-mergeDebugResources-56:/values-pt/values-pt.xml",
+            "outputFile": "com.bocado.app-mergeDebugResources-58:/values-pt/values-pt.xml",
             "map": [
                 {
                     "source": "/home/hernan/.gradle/caches/8.13/transforms/7cb315152ad609b3fd52ffec97282af2/transformed/jetified-ui-release/res/values-pt/values-pt.xml",
