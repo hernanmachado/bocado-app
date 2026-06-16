@@ -120,7 +120,7 @@ class PaymentViewModel(private val paymentRepository: PaymentRepository) : ViewM
                     _uiState.value = _uiState.value.copy(
                         paymentResult = payment,
                         isProcessing = false,
-                        isPaymentSuccess = payment.status == "APPROVED"
+                        isPaymentSuccess = payment.status == "APPROVED" || payment.status == "completado"
                     )
                     if (payment.status != "APPROVED") {
                         _uiState.value = _uiState.value.copy(

@@ -41,6 +41,7 @@ data class Order(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val clientName: String? = null,
     val tableNumber: Int = 0,
+    @SerializedName("total")
     val totalAmount: Double = 0.0,
     val status: String = "PENDING",
     val paymentMethod: String? = null,
@@ -55,15 +56,16 @@ data class Order(
 @Entity(tableName = "payments")
 data class Payment(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val orderId: Int,
-    val amount: Double,
-    val paymentMethod: String, // CREDIT_CARD, DEBIT_CARD, CASH, WALLET
-    val status: String = "PENDING", // PENDING, APPROVED, REJECTED
+    val orderId: Int = 0,
+    val amount: Double = 0.0,
+    val paymentMethod: String? = null,
+    val status: String? = null,
     val transactionId: String? = null,
     @ColumnInfo(name = "created_at")
     @SerializedName("created_at")
-    val createdAt: String = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()).format(Date())
+    val createdAt: String? = null
 )
+
 
 // Entidad Restaurant (Restaurante)
 @Entity(tableName = "restaurants")

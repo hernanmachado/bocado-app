@@ -12,11 +12,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
@@ -24,7 +22,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -36,6 +33,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -52,7 +50,6 @@ import com.bocado.ui.theme.BocadoLightGray
 import com.bocado.ui.theme.BocadoOrange
 import com.bocado.ui.theme.BocadoRed
 import com.bocado.ui.theme.BocadoWhite
-import com.bocado.viewmodel.PaymentUiState
 import com.bocado.viewmodel.PaymentViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,8 +63,7 @@ fun PaymentScreen(
 ) {
     val paymentUiState by paymentViewModel.uiState.collectAsState()
 
-    // Inicializar el pago si no está inicializado
-    if (paymentUiState.orderId == 0) {
+    LaunchedEffect(orderId, amount) {
         paymentViewModel.initializePayment(orderId, amount)
     }
 
@@ -112,7 +108,6 @@ fun PaymentScreen(
                         .padding(16.dp),
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    // Resumen del monto
                     item {
                         Card(
                             modifier = Modifier.fillMaxWidth(),
@@ -141,7 +136,6 @@ fun PaymentScreen(
                         }
                     }
 
-                    // Métodos de pago
                     item {
                         PaymentMethodSelector(
                             currentMethod = paymentUiState.paymentMethod,
@@ -149,7 +143,6 @@ fun PaymentScreen(
                         )
                     }
 
-                    // Formulario dinámico según método
                     if (paymentUiState.paymentMethod in listOf("CREDIT_CARD", "DEBIT_CARD")) {
                         item {
                             CardPaymentForm(
@@ -165,7 +158,6 @@ fun PaymentScreen(
                         }
                     }
 
-                    // Error
                     if (paymentUiState.error != null) {
                         item {
                             Card(
@@ -185,7 +177,6 @@ fun PaymentScreen(
                         }
                     }
 
-                    // Botón pagar
                     item {
                         Button(
                             onClick = { paymentViewModel.processPayment() },
@@ -223,10 +214,7 @@ fun PaymentScreen(
 @Composable
 private fun PaymentMethodSelector(currentMethod: String, onMethodSelected: (String) -> Unit) {
     Column {
-        Text(
-            "Método de Pago",
-            style = MaterialTheme.typography.titleMedium
-        )
+        Text("Método de Pago", style = MaterialTheme.typography.titleMedium)
         Spacer(modifier = Modifier.height(12.dp))
 
         val methods = listOf(
@@ -271,16 +259,11 @@ private fun CardPaymentForm(
     onHolderNameChange: (String) -> Unit
 ) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        Text(
-            "Datos de la Tarjeta",
-            style = MaterialTheme.typography.titleMedium
-        )
+        Text("Datos de la Tarjeta", style = MaterialTheme.typography.titleMedium)
 
         OutlinedTextField(
             value = cardNumber,
-            onValueChange = {
-                if (it.length <= 16) onCardNumberChange(it)
-            },
+            onValueChange = { if (it.length <= 16) onCardNumberChange(it) },
             label = { Text("Número de Tarjeta") },
             placeholder = { Text("1234 5678 9012 3456") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -294,9 +277,7 @@ private fun CardPaymentForm(
         ) {
             OutlinedTextField(
                 value = expiryDate,
-                onValueChange = {
-                    if (it.length <= 5) onExpiryDateChange(it)
-                },
+                onValueChange = { if (it.length <= 5) onExpiryDateChange(it) },
                 label = { Text("MM/YY") },
                 placeholder = { Text("01/25") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -306,9 +287,7 @@ private fun CardPaymentForm(
 
             OutlinedTextField(
                 value = cvv,
-                onValueChange = {
-                    if (it.length <= 3) onCvvChange(it)
-                },
+                onValueChange = { if (it.length <= 3) onCvvChange(it) },
                 label = { Text("CVV") },
                 placeholder = { Text("123") },
                 visualTransformation = PasswordVisualTransformation(),
@@ -353,10 +332,7 @@ private fun PaymentSuccessScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Text(
-            "¡Pago Exitoso!",
-            style = MaterialTheme.typography.headlineSmall
-        )
+        Text("¡Pago Exitoso!", style = MaterialTheme.typography.headlineSmall)
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -369,7 +345,7 @@ private fun PaymentSuccessScreen(
                 Column(modifier = Modifier.padding(16.dp)) {
                     PaymentDetailRow("Monto", "$ ${String.format("%.2f", payment.amount)}")
                     Spacer(modifier = Modifier.height(8.dp))
-                    PaymentDetailRow("Método", payment.paymentMethod)
+                    PaymentDetailRow("Método", payment.paymentMethod ?: "")
                     Spacer(modifier = Modifier.height(8.dp))
                     PaymentDetailRow("Estado", "Aprobado")
                     if (payment.transactionId != null) {

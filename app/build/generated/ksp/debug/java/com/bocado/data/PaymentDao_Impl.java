@@ -58,14 +58,26 @@ public final class PaymentDao_Impl implements PaymentDao {
         statement.bindLong(1, entity.getId());
         statement.bindLong(2, entity.getOrderId());
         statement.bindDouble(3, entity.getAmount());
-        statement.bindString(4, entity.getPaymentMethod());
-        statement.bindString(5, entity.getStatus());
+        if (entity.getPaymentMethod() == null) {
+          statement.bindNull(4);
+        } else {
+          statement.bindString(4, entity.getPaymentMethod());
+        }
+        if (entity.getStatus() == null) {
+          statement.bindNull(5);
+        } else {
+          statement.bindString(5, entity.getStatus());
+        }
         if (entity.getTransactionId() == null) {
           statement.bindNull(6);
         } else {
           statement.bindString(6, entity.getTransactionId());
         }
-        statement.bindString(7, entity.getCreatedAt());
+        if (entity.getCreatedAt() == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindString(7, entity.getCreatedAt());
+        }
       }
     };
     this.__deletionAdapterOfPayment = new EntityDeletionOrUpdateAdapter<Payment>(__db) {
@@ -94,14 +106,26 @@ public final class PaymentDao_Impl implements PaymentDao {
         statement.bindLong(1, entity.getId());
         statement.bindLong(2, entity.getOrderId());
         statement.bindDouble(3, entity.getAmount());
-        statement.bindString(4, entity.getPaymentMethod());
-        statement.bindString(5, entity.getStatus());
+        if (entity.getPaymentMethod() == null) {
+          statement.bindNull(4);
+        } else {
+          statement.bindString(4, entity.getPaymentMethod());
+        }
+        if (entity.getStatus() == null) {
+          statement.bindNull(5);
+        } else {
+          statement.bindString(5, entity.getStatus());
+        }
         if (entity.getTransactionId() == null) {
           statement.bindNull(6);
         } else {
           statement.bindString(6, entity.getTransactionId());
         }
-        statement.bindString(7, entity.getCreatedAt());
+        if (entity.getCreatedAt() == null) {
+          statement.bindNull(7);
+        } else {
+          statement.bindString(7, entity.getCreatedAt());
+        }
         statement.bindLong(8, entity.getId());
       }
     };
@@ -224,9 +248,17 @@ public final class PaymentDao_Impl implements PaymentDao {
             final double _tmpAmount;
             _tmpAmount = _cursor.getDouble(_cursorIndexOfAmount);
             final String _tmpPaymentMethod;
-            _tmpPaymentMethod = _cursor.getString(_cursorIndexOfPaymentMethod);
+            if (_cursor.isNull(_cursorIndexOfPaymentMethod)) {
+              _tmpPaymentMethod = null;
+            } else {
+              _tmpPaymentMethod = _cursor.getString(_cursorIndexOfPaymentMethod);
+            }
             final String _tmpStatus;
-            _tmpStatus = _cursor.getString(_cursorIndexOfStatus);
+            if (_cursor.isNull(_cursorIndexOfStatus)) {
+              _tmpStatus = null;
+            } else {
+              _tmpStatus = _cursor.getString(_cursorIndexOfStatus);
+            }
             final String _tmpTransactionId;
             if (_cursor.isNull(_cursorIndexOfTransactionId)) {
               _tmpTransactionId = null;
@@ -234,7 +266,11 @@ public final class PaymentDao_Impl implements PaymentDao {
               _tmpTransactionId = _cursor.getString(_cursorIndexOfTransactionId);
             }
             final String _tmpCreatedAt;
-            _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            if (_cursor.isNull(_cursorIndexOfCreatedAt)) {
+              _tmpCreatedAt = null;
+            } else {
+              _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            }
             _item = new Payment(_tmpId,_tmpOrderId,_tmpAmount,_tmpPaymentMethod,_tmpStatus,_tmpTransactionId,_tmpCreatedAt);
             _result.add(_item);
           }
@@ -281,9 +317,17 @@ public final class PaymentDao_Impl implements PaymentDao {
             final double _tmpAmount;
             _tmpAmount = _cursor.getDouble(_cursorIndexOfAmount);
             final String _tmpPaymentMethod;
-            _tmpPaymentMethod = _cursor.getString(_cursorIndexOfPaymentMethod);
+            if (_cursor.isNull(_cursorIndexOfPaymentMethod)) {
+              _tmpPaymentMethod = null;
+            } else {
+              _tmpPaymentMethod = _cursor.getString(_cursorIndexOfPaymentMethod);
+            }
             final String _tmpStatus;
-            _tmpStatus = _cursor.getString(_cursorIndexOfStatus);
+            if (_cursor.isNull(_cursorIndexOfStatus)) {
+              _tmpStatus = null;
+            } else {
+              _tmpStatus = _cursor.getString(_cursorIndexOfStatus);
+            }
             final String _tmpTransactionId;
             if (_cursor.isNull(_cursorIndexOfTransactionId)) {
               _tmpTransactionId = null;
@@ -291,7 +335,11 @@ public final class PaymentDao_Impl implements PaymentDao {
               _tmpTransactionId = _cursor.getString(_cursorIndexOfTransactionId);
             }
             final String _tmpCreatedAt;
-            _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            if (_cursor.isNull(_cursorIndexOfCreatedAt)) {
+              _tmpCreatedAt = null;
+            } else {
+              _tmpCreatedAt = _cursor.getString(_cursorIndexOfCreatedAt);
+            }
             _result = new Payment(_tmpId,_tmpOrderId,_tmpAmount,_tmpPaymentMethod,_tmpStatus,_tmpTransactionId,_tmpCreatedAt);
           } else {
             _result = null;

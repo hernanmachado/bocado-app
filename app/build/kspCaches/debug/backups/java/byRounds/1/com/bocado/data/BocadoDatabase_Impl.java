@@ -45,10 +45,10 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
         db.execSQL("CREATE TABLE IF NOT EXISTS `dishes` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `price` REAL NOT NULL, `stock` INTEGER NOT NULL, `imageUrl` TEXT NOT NULL, `category` TEXT NOT NULL, `isAvailable` INTEGER NOT NULL, `created_at` TEXT NOT NULL, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS `orders` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `clientName` TEXT, `tableNumber` INTEGER NOT NULL, `totalAmount` REAL NOT NULL, `status` TEXT NOT NULL, `paymentMethod` TEXT, `items` TEXT NOT NULL, `created_at` TEXT, `qrCode` TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `order_items` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dishId` INTEGER NOT NULL, `dishName` TEXT NOT NULL, `quantity` INTEGER NOT NULL, `unitPrice` REAL NOT NULL, `subtotal` REAL NOT NULL)");
-        db.execSQL("CREATE TABLE IF NOT EXISTS `payments` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orderId` INTEGER NOT NULL, `amount` REAL NOT NULL, `paymentMethod` TEXT NOT NULL, `status` TEXT NOT NULL, `transactionId` TEXT, `created_at` TEXT NOT NULL)");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `payments` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orderId` INTEGER NOT NULL, `amount` REAL NOT NULL, `paymentMethod` TEXT, `status` TEXT, `transactionId` TEXT, `created_at` TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `restaurants` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `location` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `logoUrl` TEXT NOT NULL, PRIMARY KEY(`id`))");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'bfc0bcebb70b3ed773dbb732b790a1ea')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '151136285832d7dce760a30c708429ae')");
       }
 
       @Override
@@ -159,10 +159,10 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
         _columnsPayments.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsPayments.put("orderId", new TableInfo.Column("orderId", "INTEGER", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsPayments.put("amount", new TableInfo.Column("amount", "REAL", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPayments.put("paymentMethod", new TableInfo.Column("paymentMethod", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPayments.put("status", new TableInfo.Column("status", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPayments.put("paymentMethod", new TableInfo.Column("paymentMethod", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPayments.put("status", new TableInfo.Column("status", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         _columnsPayments.put("transactionId", new TableInfo.Column("transactionId", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
-        _columnsPayments.put("created_at", new TableInfo.Column("created_at", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsPayments.put("created_at", new TableInfo.Column("created_at", "TEXT", false, 0, null, TableInfo.CREATED_FROM_ENTITY));
         final HashSet<TableInfo.ForeignKey> _foreignKeysPayments = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesPayments = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoPayments = new TableInfo("payments", _columnsPayments, _foreignKeysPayments, _indicesPayments);
@@ -190,7 +190,7 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
         }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "bfc0bcebb70b3ed773dbb732b790a1ea", "20458621f4d3014bd95a2f8a06462f04");
+    }, "151136285832d7dce760a30c708429ae", "fe3684a975d3c9bfdc777572dcb6db0d");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;

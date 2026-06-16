@@ -38,10 +38,8 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializar base de datos
         database = BocadoDatabase.getInstance(this)
 
-        // Inicializar repositorios
         val dishRepository = DishRepository(
             database.dishDao(),
             ApiClient.apiService
@@ -58,7 +56,6 @@ class MainActivity : ComponentActivity() {
             ApiClient.apiService
         )
 
-        // Inicializar ViewModels
         menuViewModel = MenuViewModel(dishRepository)
         cartViewModel = CartViewModel(orderRepository, dishRepository)
         paymentViewModel = PaymentViewModel(paymentRepository)
@@ -122,7 +119,9 @@ fun BocadoApp(
                     onNavigateToPayment = {
                         val currentOrder = cartUiState.currentOrder
                         if (currentOrder != null) {
-                            navController.navigate("payment/${currentOrder.id}/${currentOrder.totalAmount}")
+                            // Usamos el total del carrito con impuestos, no el del servidor
+                            val total = cartUiState.totalAmount * 1.1
+                            navController.navigate("payment/${currentOrder.id}/$total")
                         }
                     }
                 )
@@ -158,5 +157,6 @@ fun BocadoDatabase.Companion.getInstance(context: Context): BocadoDatabase {
         "bocado.db"
     ).build()
 }
+
 
 
