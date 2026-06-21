@@ -154,6 +154,7 @@ app/
             │   └── PaymentViewModel.kt
             │
             └── MainActivity.kt              # Punto de entrada de la aplicación
+
 ```
 
 ## Diseño Visual
