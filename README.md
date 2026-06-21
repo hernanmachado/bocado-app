@@ -107,46 +107,7 @@ gradlew.bat build
 ## Estructura del Proyecto
 
 ```
-BOCADO/
-├── app/
-│   ├── src/main/
-│   │   ├── java/com/bocado/
-│   │   │   ├── ui/
-│   │   │   │   ├── screens/
-│   │   │   │   │   ├── SplashScreen.kt
-│   │   │   │   │   ├── MenuScreen.kt
-│   │   │   │   │   ├── CartScreen.kt
-│   │   │   │   │   └── PaymentScreen.kt
-│   │   │   │   └── theme/
-│   │   │   │       └── Theme.kt (Colores, Tipografía)
-│   │   │   ├── viewmodel/
-│   │   │   │   ├── MenuViewModel.kt
-│   │   │   │   ├── CartViewModel.kt
-│   │   │   │   └── PaymentViewModel.kt
-│   │   │   ├── repository/
-│   │   │   │   └── Repositories.kt
-│   │   │   ├── data/
-│   │   │   │   ├── BocadoDatabase.kt
-│   │   │   │   ├── Daos.kt
-│   │   │   │   ├── Converters.kt
-│   │   │   │   └── api/
-│   │   │   │       ├── BocadoApi.kt
-│   │   │   │       └── ApiClient.kt
-│   │   │   ├── model/
-│   │   │   │   └── Models.kt
-│   │   │   └── MainActivity.kt
-│   │   ├── res/
-│   │   │   ├── values/
-│   │   │   │   ├── colors.xml
-│   │   │   │   ├── strings.xml
-│   │   │   │   └── dimens.xml
-│   │   │   └── AndroidManifest.xml
-│   │   └── test/
-│   │       └── java/com/bocado/BocadoTests.kt
-│   └── build.gradle.kts
-├── build.gradle.kts
-├── settings.gradle.kts
-└── DOCUMENTACION_TECNICA.md
+BOCADO/├── app/│   ├── src/main/│   │   ├── java/com/bocado/│   │   │   ├── data/│   │   │   │   ├── api/│   │   │   │   │   ├── ApiClient.kt        # Configuración base de Retrofit│   │   │   │   │   └── BocadoApi.kt        # Endpoints de la API ficticia│   │   │   │   ├── BocadoDatabase.kt       # Configuración de Room (v2)│   │   │   │   ├── Converters.kt           # Convertidores de tipos para Room│   │   │   │   └── Daos.kt                 # DAOs (incluye UserDao para el login)│   │   │   ├── model/│   │   │   │   └── Models.kt               # Data classes (Dish, Order, User, etc.)│   │   │   ├── repository/│   │   │   │   └── Repositories.kt         # Lógica de red y caché local│   │   │   ├── ui/│   │   │   │   ├── screens/│   │   │   │   │   ├── LoginScreen.kt          # Pantalla de ingreso│   │   │   │   │   ├── RegisterScreen.kt       # Registro de usuarios locales│   │   │   │   │   ├── OnboardingScreen.kt     # Bienvenida y pasos de la app│   │   │   │   │   ├── ScannerScreen.kt        # Cámara con CameraX para escanear QR│   │   │   │   │   ├── MenuScreen.kt           # Listado de platos (consume API)│   │   │   │   │   ├── CartScreen.kt           # Carrito de compras│   │   │   │   │   ├── PaymentScreen.kt        # Proceso de pago│   │   │   │   │   ├── OrderStatusScreen.kt    # Feedback de "Orden en preparación"│   │   │   │   │   └── SplashScreen.kt│   │   │   │   └── theme/│   │   │   │       └── Theme.kt            # Colores y Tipografía (Compose)│   │   │   ├── viewmodel/│   │   │   │   ├── MenuViewModel.kt│   │   │   │   ├── CartViewModel.kt│   │   │   │   └── PaymentViewModel.kt│   │   │   └── MainActivity.kt             # Punto de entrada y NavHost│   │   ├── res/│   │   │   ├── values/                     # strings.xml, colors.xml│   │   │   └── AndroidManifest.xml         # Permisos (Internet, Cámara)│   │   └── test/│   │       └── java/com/bocado/BocadoTests.kt│   └── build.gradle.kts                    # Dependencias (Room, Retrofit, CameraX)├── build.gradle.kts                        # Configuración global del proyecto├── settings.gradle.kts└── README.md
 ```
 
 ## Diseño Visual
