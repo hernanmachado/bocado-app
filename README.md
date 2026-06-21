@@ -106,6 +106,9 @@ gradlew.bat build
 
 ## Estructura del Proyecto
 
+## 📁 Estructura del Proyecto
+
+```
 app/
 └── src/main/
     ├── manifests/
@@ -151,6 +154,7 @@ app/
             │   └── PaymentViewModel.kt
             │
             └── MainActivity.kt              # Punto de entrada de la aplicación
+```
 
 ## Diseño Visual
 
