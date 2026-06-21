@@ -36,10 +36,12 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
 
   private volatile RestaurantDao _restaurantDao;
 
+  private volatile UserDao _userDao;
+
   @Override
   @NonNull
   protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
-    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(1) {
+    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(2) {
       @Override
       public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
         db.execSQL("CREATE TABLE IF NOT EXISTS `dishes` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `price` REAL NOT NULL, `stock` INTEGER NOT NULL, `imageUrl` TEXT NOT NULL, `category` TEXT NOT NULL, `isAvailable` INTEGER NOT NULL, `created_at` TEXT NOT NULL, PRIMARY KEY(`id`))");
@@ -47,8 +49,9 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
         db.execSQL("CREATE TABLE IF NOT EXISTS `order_items` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dishId` INTEGER NOT NULL, `dishName` TEXT NOT NULL, `quantity` INTEGER NOT NULL, `unitPrice` REAL NOT NULL, `subtotal` REAL NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `payments` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `orderId` INTEGER NOT NULL, `amount` REAL NOT NULL, `paymentMethod` TEXT, `status` TEXT, `transactionId` TEXT, `created_at` TEXT)");
         db.execSQL("CREATE TABLE IF NOT EXISTS `restaurants` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `location` TEXT NOT NULL, `phone` TEXT NOT NULL, `email` TEXT NOT NULL, `logoUrl` TEXT NOT NULL, PRIMARY KEY(`id`))");
+        db.execSQL("CREATE TABLE IF NOT EXISTS `users` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `username` TEXT NOT NULL, `password` TEXT NOT NULL)");
         db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '151136285832d7dce760a30c708429ae')");
+        db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5a8d95ecca7d2ef148a4da993609c4fe')");
       }
 
       @Override
@@ -58,6 +61,7 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
         db.execSQL("DROP TABLE IF EXISTS `order_items`");
         db.execSQL("DROP TABLE IF EXISTS `payments`");
         db.execSQL("DROP TABLE IF EXISTS `restaurants`");
+        db.execSQL("DROP TABLE IF EXISTS `users`");
         final List<? extends RoomDatabase.Callback> _callbacks = mCallbacks;
         if (_callbacks != null) {
           for (RoomDatabase.Callback _callback : _callbacks) {
@@ -188,9 +192,22 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
                   + " Expected:\n" + _infoRestaurants + "\n"
                   + " Found:\n" + _existingRestaurants);
         }
+        final HashMap<String, TableInfo.Column> _columnsUsers = new HashMap<String, TableInfo.Column>(3);
+        _columnsUsers.put("id", new TableInfo.Column("id", "INTEGER", true, 1, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUsers.put("username", new TableInfo.Column("username", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        _columnsUsers.put("password", new TableInfo.Column("password", "TEXT", true, 0, null, TableInfo.CREATED_FROM_ENTITY));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysUsers = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesUsers = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoUsers = new TableInfo("users", _columnsUsers, _foreignKeysUsers, _indicesUsers);
+        final TableInfo _existingUsers = TableInfo.read(db, "users");
+        if (!_infoUsers.equals(_existingUsers)) {
+          return new RoomOpenHelper.ValidationResult(false, "users(com.bocado.model.User).\n"
+                  + " Expected:\n" + _infoUsers + "\n"
+                  + " Found:\n" + _existingUsers);
+        }
         return new RoomOpenHelper.ValidationResult(true, null);
       }
-    }, "151136285832d7dce760a30c708429ae", "fe3684a975d3c9bfdc777572dcb6db0d");
+    }, "5a8d95ecca7d2ef148a4da993609c4fe", "af862d5ffd4d16ee2deaf9133bd7dc7f");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();
     final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);
     return _helper;
@@ -201,7 +218,7 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
   protected InvalidationTracker createInvalidationTracker() {
     final HashMap<String, String> _shadowTablesMap = new HashMap<String, String>(0);
     final HashMap<String, Set<String>> _viewTables = new HashMap<String, Set<String>>(0);
-    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "dishes","orders","order_items","payments","restaurants");
+    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, "dishes","orders","order_items","payments","restaurants","users");
   }
 
   @Override
@@ -215,6 +232,7 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
       _db.execSQL("DELETE FROM `order_items`");
       _db.execSQL("DELETE FROM `payments`");
       _db.execSQL("DELETE FROM `restaurants`");
+      _db.execSQL("DELETE FROM `users`");
       super.setTransactionSuccessful();
     } finally {
       super.endTransaction();
@@ -234,6 +252,7 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
     _typeConvertersMap.put(OrderItemDao.class, OrderItemDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(PaymentDao.class, PaymentDao_Impl.getRequiredConverters());
     _typeConvertersMap.put(RestaurantDao.class, RestaurantDao_Impl.getRequiredConverters());
+    _typeConvertersMap.put(UserDao.class, UserDao_Impl.getRequiredConverters());
     return _typeConvertersMap;
   }
 
@@ -318,6 +337,20 @@ public final class BocadoDatabase_Impl extends BocadoDatabase {
           _restaurantDao = new RestaurantDao_Impl(this);
         }
         return _restaurantDao;
+      }
+    }
+  }
+
+  @Override
+  public UserDao userDao() {
+    if (_userDao != null) {
+      return _userDao;
+    } else {
+      synchronized(this) {
+        if(_userDao == null) {
+          _userDao = new UserDao_Impl(this);
+        }
+        return _userDao;
       }
     }
   }

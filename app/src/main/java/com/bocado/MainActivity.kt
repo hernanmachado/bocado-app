@@ -7,8 +7,6 @@ import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -19,14 +17,17 @@ import com.bocado.data.api.ApiClient
 import com.bocado.repository.DishRepository
 import com.bocado.repository.OrderRepository
 import com.bocado.repository.PaymentRepository
-import com.bocado.ui.screens.MenuScreen
 import com.bocado.ui.screens.CartScreen
-import com.bocado.ui.screens.PaymentScreen
-import com.bocado.ui.screens.SplashScreen
+import com.bocado.ui.screens.LoginScreen
+import com.bocado.ui.screens.MenuScreen
 import com.bocado.ui.screens.OnboardingScreen
+import com.bocado.ui.screens.OrderStatusScreen
+import com.bocado.ui.screens.PaymentScreen
+import com.bocado.ui.screens.RegisterScreen
+import com.bocado.ui.screens.ScannerScreen
 import com.bocado.ui.theme.BocadoTheme
-import com.bocado.viewmodel.MenuViewModel
 import com.bocado.viewmodel.CartViewModel
+import com.bocado.viewmodel.MenuViewModel
 import com.bocado.viewmodel.PaymentViewModel
 
 class MainActivity : ComponentActivity() {
@@ -40,21 +41,9 @@ class MainActivity : ComponentActivity() {
 
         database = BocadoDatabase.getInstance(this)
 
-        val dishRepository = DishRepository(
-            database.dishDao(),
-            ApiClient.apiService
-        )
-
-        val orderRepository = OrderRepository(
-            database.orderDao(),
-            database.orderItemDao(),
-            ApiClient.apiService
-        )
-
-        val paymentRepository = PaymentRepository(
-            database.paymentDao(),
-            ApiClient.apiService
-        )
+        val dishRepository = DishRepository(database.dishDao(), ApiClient.apiService)
+        val orderRepository = OrderRepository(database.orderDao(), database.orderItemDao(), ApiClient.apiService)
+        val paymentRepository = PaymentRepository(database.paymentDao(), ApiClient.apiService)
 
         menuViewModel = MenuViewModel(dishRepository)
         cartViewModel = CartViewModel(orderRepository, dishRepository)
@@ -63,6 +52,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             BocadoTheme {
                 BocadoApp(
+                    database = database,
                     menuViewModel = menuViewModel,
                     cartViewModel = cartViewModel,
                     paymentViewModel = paymentViewModel
@@ -74,89 +64,131 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BocadoApp(
+    database: BocadoDatabase,
     menuViewModel: MenuViewModel,
     cartViewModel: CartViewModel,
     paymentViewModel: PaymentViewModel
 ) {
     val navController = rememberNavController()
-    val showOnboarding = remember { mutableStateOf(true) }
     val cartUiState by cartViewModel.uiState.collectAsState()
 
-    if (showOnboarding.value) {
-        OnboardingScreen(onContinue = { showOnboarding.value = false })
-    } else {
-        NavHost(
-            navController = navController,
-            startDestination = "splash"
-        ) {
-            composable("splash") {
-                SplashScreen(
-                    onNavigateToQR = {
-                        navController.navigate("menu") {
-                            popUpTo("splash") { inclusive = true }
-                        }
+    NavHost(
+        navController = navController,
+        startDestination = "login" // 1. ARRANCAMOS EN LOGIN
+    ) {
+        composable("login") {
+            LoginScreen(
+                userDao = database.userDao(),
+                onLoginSuccess = {
+                    navController.navigate("onboarding") { // 2. SI ENTRO, VOY AL ONBOARDING
+                        popUpTo("login") { inclusive = true }
                     }
-                )
-            }
+                },
+                onNavigateToRegister = { navController.navigate("register") }
+            )
+        }
 
-            composable("menu") {
-                MenuScreen(
-                    menuViewModel = menuViewModel,
-                    cartViewModel = cartViewModel,
-                    cartItemsCount = cartUiState.cartItems.size,
-                    onNavigateToCart = {
-                        navController.navigate("cart")
+        composable("register") {
+            RegisterScreen(
+                userDao = database.userDao(),
+                onRegisterSuccess = {
+                    navController.navigate("login") {
+                        popUpTo("register") { inclusive = true }
                     }
-                )
-            }
+                },
+                onNavigateBack = { navController.popBackStack() }
+            )
+        }
 
-            composable("cart") {
-                CartScreen(
-                    cartViewModel = cartViewModel,
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    },
-                    onNavigateToPayment = {
-                        val currentOrder = cartUiState.currentOrder
-                        if (currentOrder != null) {
-                            // Usamos el total del carrito con impuestos, no el del servidor
-                            val total = cartUiState.totalAmount * 1.1
-                            navController.navigate("payment/${currentOrder.id}/$total")
-                        }
+        composable("onboarding") {
+            OnboardingScreen(
+                onContinue = {
+                    navController.navigate("scanner") { // 3. AL PONER "COMENZAR", VOY AL ESCÁNER
+                        popUpTo("onboarding") { inclusive = true }
                     }
-                )
-            }
+                }
+            )
+        }
 
-            composable("payment/{orderId}/{amount}") { backStackEntry ->
-                val orderId = backStackEntry.arguments?.getString("orderId")?.toIntOrNull() ?: 0
-                val amount = backStackEntry.arguments?.getString("amount")?.toDoubleOrNull() ?: 0.0
-
-                PaymentScreen(
-                    paymentViewModel = paymentViewModel,
-                    amount = amount,
-                    orderId = orderId,
-                    onNavigateBack = {
-                        navController.popBackStack()
-                    },
-                    onPaymentSuccess = {
-                        cartViewModel.clearCart()
-                        navController.navigate("menu") {
-                            popUpTo("payment/{orderId}/{amount}") { inclusive = true }
-                        }
+        composable("scanner") {
+            ScannerScreen(
+                menuViewModel = menuViewModel,
+                onScanSuccess = {
+                    navController.navigate("menu") {
+                        popUpTo("scanner") { inclusive = true }
                     }
-                )
-            }
+                },
+                onNavigateBack = { navController.popBackStack() } // <--- AGREGÁ ESTA LÍNEA
+            )
+        }
+
+
+        composable("menu") {
+            MenuScreen(
+                menuViewModel = menuViewModel,
+                cartViewModel = cartViewModel,
+                cartItemsCount = cartUiState.cartItems.size,
+                onNavigateToCart = { navController.navigate("cart") }
+            )
+        }
+
+        composable("cart") {
+            CartScreen(
+                cartViewModel = cartViewModel,
+                onNavigateBack = { navController.popBackStack() },
+                onNavigateToPayment = {
+                    val currentOrder = cartUiState.currentOrder
+                    if (currentOrder != null) {
+                        val total = cartUiState.totalAmount * 1.1
+                        navController.navigate("payment/${currentOrder.id}/$total")
+                    }
+                }
+            )
+        }
+
+        composable("payment/{orderId}/{amount}") { backStackEntry ->
+            val orderId = backStackEntry.arguments?.getString("orderId")?.toIntOrNull() ?: 0
+            val amount = backStackEntry.arguments?.getString("amount")?.toDoubleOrNull() ?: 0.0
+
+            PaymentScreen(
+                paymentViewModel = paymentViewModel,
+                amount = amount,
+                orderId = orderId,
+                onNavigateBack = { navController.popBackStack() },
+                onPaymentSuccess = {
+                    cartViewModel.clearCart()
+                    // Al pagar, vamos a la pantalla de Estado de Pedido
+                    navController.navigate("order_status") {
+                        popUpTo("payment/{orderId}/{amount}") { inclusive = true }
+                        popUpTo("cart") { inclusive = true } // Limpiamos el carrito de la pila de navegación
+                    }
+                }
+            )
+        }
+
+        // NUEVA RUTA: Pantalla de estado de pedido
+        composable("order_status") {
+            OrderStatusScreen(
+                onNavigateToMenu = {
+                    navController.navigate("menu") {
+                        popUpTo("order_status") { inclusive = true }
+                    }
+                }
+            )
         }
     }
 }
 
+// Actualizamos el Builder para que no crashee al cambiar la versión de la DB
 fun BocadoDatabase.Companion.getInstance(context: Context): BocadoDatabase {
     return Room.databaseBuilder(
         context.applicationContext,
         BocadoDatabase::class.java,
         "bocado.db"
-    ).build()
+    ).fallbackToDestructiveMigration() // ESTO EVITA ERRORES AL AGREGAR LA TABLA USER
+        .build()
 }
+
 
 
 

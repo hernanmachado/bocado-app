@@ -1,58 +1,58 @@
 [
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-mdpi/ic_launcher.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-xhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "com.bocado.app-debug-69:/xml_data_extraction_rules.xml.flat",
+        "source": "com.bocado.app-main-71:/xml/data_extraction_rules.xml"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-ldpi_ic_launcher.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-ldpi/ic_launcher.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-xxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-hdpi/ic_launcher.png"
+        "merged": "com.bocado.app-debug-69:/xml_backup_rules.xml.flat",
+        "source": "com.bocado.app-main-71:/xml/backup_rules.xml"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-xxhdpi_ic_launcher_round.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-xxhdpi/ic_launcher_round.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/xml_data_extraction_rules.xml.flat",
-        "source": "com.bocado.app-main-62:/xml/data_extraction_rules.xml"
+        "merged": "com.bocado.app-debug-69:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-xxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-mdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-mdpi_ic_launcher_round.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-mdpi/ic_launcher_round.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-xxxhdpi/ic_launcher_round.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-hdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-xxxhdpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-xhdpi_ic_launcher_round.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-xhdpi/ic_launcher_round.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-ldpi_ic_launcher_round.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-ldpi/ic_launcher_round.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-ldpi_ic_launcher_round.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-ldpi/ic_launcher_round.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/mipmap-hdpi_ic_launcher_round.png.flat",
-        "source": "com.bocado.app-main-62:/mipmap-hdpi/ic_launcher_round.png"
+        "merged": "com.bocado.app-debug-69:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "com.bocado.app-debug-60:/xml_backup_rules.xml.flat",
-        "source": "com.bocado.app-main-62:/xml/backup_rules.xml"
+        "merged": "com.bocado.app-debug-69:/mipmap-ldpi_ic_launcher.png.flat",
+        "source": "com.bocado.app-main-71:/mipmap-ldpi/ic_launcher.png"
     }
 ]
