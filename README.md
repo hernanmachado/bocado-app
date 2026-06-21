@@ -106,9 +106,51 @@ gradlew.bat build
 
 ## Estructura del Proyecto
 
-```
-BOCADO/├── app/│   ├── src/main/│   │   ├── java/com/bocado/│   │   │   ├── data/│   │   │   │   ├── api/│   │   │   │   │   ├── ApiClient.kt        # Configuración base de Retrofit│   │   │   │   │   └── BocadoApi.kt        # Endpoints de la API ficticia│   │   │   │   ├── BocadoDatabase.kt       # Configuración de Room (v2)│   │   │   │   ├── Converters.kt           # Convertidores de tipos para Room│   │   │   │   └── Daos.kt                 # DAOs (incluye UserDao para el login)│   │   │   ├── model/│   │   │   │   └── Models.kt               # Data classes (Dish, Order, User, etc.)│   │   │   ├── repository/│   │   │   │   └── Repositories.kt         # Lógica de red y caché local│   │   │   ├── ui/│   │   │   │   ├── screens/│   │   │   │   │   ├── LoginScreen.kt          # Pantalla de ingreso│   │   │   │   │   ├── RegisterScreen.kt       # Registro de usuarios locales│   │   │   │   │   ├── OnboardingScreen.kt     # Bienvenida y pasos de la app│   │   │   │   │   ├── ScannerScreen.kt        # Cámara con CameraX para escanear QR│   │   │   │   │   ├── MenuScreen.kt           # Listado de platos (consume API)│   │   │   │   │   ├── CartScreen.kt           # Carrito de compras│   │   │   │   │   ├── PaymentScreen.kt        # Proceso de pago│   │   │   │   │   ├── OrderStatusScreen.kt    # Feedback de "Orden en preparación"│   │   │   │   │   └── SplashScreen.kt│   │   │   │   └── theme/│   │   │   │       └── Theme.kt            # Colores y Tipografía (Compose)│   │   │   ├── viewmodel/│   │   │   │   ├── MenuViewModel.kt│   │   │   │   ├── CartViewModel.kt│   │   │   │   └── PaymentViewModel.kt│   │   │   └── MainActivity.kt             # Punto de entrada y NavHost│   │   ├── res/│   │   │   ├── values/                     # strings.xml, colors.xml│   │   │   └── AndroidManifest.xml         # Permisos (Internet, Cámara)│   │   └── test/│   │       └── java/com/bocado/BocadoTests.kt│   └── build.gradle.kts                    # Dependencias (Room, Retrofit, CameraX)├── build.gradle.kts                        # Configuración global del proyecto├── settings.gradle.kts└── README.md
-```
+app/
+└── src/main/
+    ├── manifests/
+    │   └── AndroidManifest.xml
+    │
+    └── kotlin+java/
+        └── com.bocado/
+            │
+            ├── data/                      # Capa de datos (Model)
+            │   ├── api/
+            │   │   ├── ApiClient.kt        # Configuración del cliente HTTP
+            │   │   └── BocadoApi.kt        # Definición de endpoints (Retrofit/Ktor)
+            │   ├── BocadoDatabase.kt       # Configuración de la base de datos local
+            │   ├── Converters.kt           # Type converters para Room
+            │   └── Daos.kt                 # Data Access Objects (consultas DB)
+            │
+            ├── model/                      # Modelos de datos
+            │   ├── Models.kt                # Entidades / data classes
+            │   └── User.kt                  # Modelo de usuario
+            │
+            ├── repository/                  # Repositorios (puente entre data y viewmodel)
+            │   └── Repositories.kt
+            │
+            ├── ui/                          # Capa de presentación (View)
+            │   ├── screens/
+            │   │   ├── CartScreen.kt
+            │   │   ├── LoginScreen.kt
+            │   │   ├── MenuScreen.kt
+            │   │   ├── OrderStatusScreen.kt
+            │   │   ├── PaymentScreen.kt
+            │   │   ├── RegisterScreen.kt
+            │   │   ├── ScannerScreen.kt
+            │   │   └── SplashScreen.kt
+            │   └── theme/
+            │       └── Theme.kt             # Estilos y tema de Jetpack Compose
+            │
+            ├── util/
+            │   └── MockData.kt              # Datos de prueba / utilidades
+            │
+            ├── viewmodel/                    # Capa de lógica de presentación (ViewModel)
+            │   ├── CartViewModel.kt
+            │   ├── MenuViewModel.kt
+            │   └── PaymentViewModel.kt
+            │
+            └── MainActivity.kt              # Punto de entrada de la aplicación
 
 ## Diseño Visual
 
