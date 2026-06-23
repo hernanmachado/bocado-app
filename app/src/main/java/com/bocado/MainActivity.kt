@@ -20,11 +20,13 @@ import com.bocado.repository.PaymentRepository
 import com.bocado.ui.screens.CartScreen
 import com.bocado.ui.screens.LoginScreen
 import com.bocado.ui.screens.MenuScreen
-import com.bocado.ui.screens.OnboardingScreen
+import com.bocado.ui.screens.OnboardingScreenV2
 import com.bocado.ui.screens.OrderStatusScreen
 import com.bocado.ui.screens.PaymentScreen
 import com.bocado.ui.screens.RegisterScreen
 import com.bocado.ui.screens.ScannerScreen
+import com.bocado.ui.screens.SplashScreenV2
+import com.bocado.ui.screens.TableConfirmationScreen
 import com.bocado.ui.theme.BocadoTheme
 import com.bocado.viewmodel.CartViewModel
 import com.bocado.viewmodel.MenuViewModel
@@ -74,13 +76,23 @@ fun BocadoApp(
 
     NavHost(
         navController = navController,
-        startDestination = "login" // 1. ARRANCAMOS EN LOGIN
+        startDestination = "splash" // 1. ARRANCAMOS EN EL SPLASH ANIMADO
     ) {
+        composable("splash") {
+            SplashScreenV2(
+                onNavigateToQR = {
+                    navController.navigate("login") {
+                        popUpTo("splash") { inclusive = true }
+                    }
+                }
+            )
+        }
+
         composable("login") {
             LoginScreen(
                 userDao = database.userDao(),
                 onLoginSuccess = {
-                    navController.navigate("onboarding") { // 2. SI ENTRO, VOY AL ONBOARDING
+                    navController.navigate("onboarding") {
                         popUpTo("login") { inclusive = true }
                     }
                 },
@@ -101,9 +113,9 @@ fun BocadoApp(
         }
 
         composable("onboarding") {
-            OnboardingScreen(
+            OnboardingScreenV2(
                 onContinue = {
-                    navController.navigate("scanner") { // 3. AL PONER "COMENZAR", VOY AL ESCÁNER
+                    navController.navigate("scanner") {
                         popUpTo("onboarding") { inclusive = true }
                     }
                 }
@@ -114,14 +126,32 @@ fun BocadoApp(
             ScannerScreen(
                 menuViewModel = menuViewModel,
                 onScanSuccess = {
-                    navController.navigate("menu") {
+                    // AL ESCANEAR, VAMOS A LA CONFIRMACIÓN DE MESA
+                    navController.navigate("table_confirmation") {
                         popUpTo("scanner") { inclusive = true }
                     }
                 },
-                onNavigateBack = { navController.popBackStack() } // <--- AGREGÁ ESTA LÍNEA
+                onNavigateBack = { navController.popBackStack() }
             )
         }
 
+        // NUEVA RUTA: Confirmación de mesa animada
+        composable("table_confirmation") {
+            TableConfirmationScreen(
+                tableNumber = 0, // 0 para que sea aleatoria como lo programó tu compañero
+                waiterName = "Juan Pérez", // Podés ponerle el nombre que quieras
+                onGoToMenu = {
+                    navController.navigate("menu") {
+                        popUpTo("table_confirmation") { inclusive = true }
+                    }
+                },
+                onScanAgain = {
+                    navController.navigate("scanner") {
+                        popUpTo("table_confirmation") { inclusive = true }
+                    }
+                }
+            )
+        }
 
         composable("menu") {
             MenuScreen(
@@ -157,16 +187,14 @@ fun BocadoApp(
                 onNavigateBack = { navController.popBackStack() },
                 onPaymentSuccess = {
                     cartViewModel.clearCart()
-                    // Al pagar, vamos a la pantalla de Estado de Pedido
                     navController.navigate("order_status") {
                         popUpTo("payment/{orderId}/{amount}") { inclusive = true }
-                        popUpTo("cart") { inclusive = true } // Limpiamos el carrito de la pila de navegación
+                        popUpTo("cart") { inclusive = true }
                     }
                 }
             )
         }
 
-        // NUEVA RUTA: Pantalla de estado de pedido
         composable("order_status") {
             OrderStatusScreen(
                 onNavigateToMenu = {
@@ -185,7 +213,7 @@ fun BocadoDatabase.Companion.getInstance(context: Context): BocadoDatabase {
         context.applicationContext,
         BocadoDatabase::class.java,
         "bocado.db"
-    ).fallbackToDestructiveMigration() // ESTO EVITA ERRORES AL AGREGAR LA TABLA USER
+    ).fallbackToDestructiveMigration()
         .build()
 }
 

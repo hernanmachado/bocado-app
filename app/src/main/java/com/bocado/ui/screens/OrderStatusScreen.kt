@@ -72,7 +72,7 @@ fun OrderStatusScreen(
             onClick = onNavigateToMenu,
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Realizar otro pedido")
+            Text("Realizar otro pedido",color = Color.White)
         }
 
         Spacer(modifier = Modifier.height(8.dp))
