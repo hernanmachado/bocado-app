@@ -106,47 +106,55 @@ gradlew.bat build
 
 ## Estructura del Proyecto
 
+## 📁 Estructura del Proyecto
+
 ```
-BOCADO/
-├── app/
-│   ├── src/main/
-│   │   ├── java/com/bocado/
-│   │   │   ├── ui/
-│   │   │   │   ├── screens/
-│   │   │   │   │   ├── SplashScreen.kt
-│   │   │   │   │   ├── MenuScreen.kt
-│   │   │   │   │   ├── CartScreen.kt
-│   │   │   │   │   └── PaymentScreen.kt
-│   │   │   │   └── theme/
-│   │   │   │       └── Theme.kt (Colores, Tipografía)
-│   │   │   ├── viewmodel/
-│   │   │   │   ├── MenuViewModel.kt
-│   │   │   │   ├── CartViewModel.kt
-│   │   │   │   └── PaymentViewModel.kt
-│   │   │   ├── repository/
-│   │   │   │   └── Repositories.kt
-│   │   │   ├── data/
-│   │   │   │   ├── BocadoDatabase.kt
-│   │   │   │   ├── Daos.kt
-│   │   │   │   ├── Converters.kt
-│   │   │   │   └── api/
-│   │   │   │       ├── BocadoApi.kt
-│   │   │   │       └── ApiClient.kt
-│   │   │   ├── model/
-│   │   │   │   └── Models.kt
-│   │   │   └── MainActivity.kt
-│   │   ├── res/
-│   │   │   ├── values/
-│   │   │   │   ├── colors.xml
-│   │   │   │   ├── strings.xml
-│   │   │   │   └── dimens.xml
-│   │   │   └── AndroidManifest.xml
-│   │   └── test/
-│   │       └── java/com/bocado/BocadoTests.kt
-│   └── build.gradle.kts
-├── build.gradle.kts
-├── settings.gradle.kts
-└── DOCUMENTACION_TECNICA.md
+app/
+└── src/main/
+    ├── manifests/
+    │   └── AndroidManifest.xml
+    │
+    └── kotlin+java/
+        └── com.bocado/
+            │
+            ├── data/                      # Capa de datos (Model)
+            │   ├── api/
+            │   │   ├── ApiClient.kt        # Configuración del cliente HTTP
+            │   │   └── BocadoApi.kt        # Definición de endpoints (Retrofit/Ktor)
+            │   ├── BocadoDatabase.kt       # Configuración de la base de datos local
+            │   ├── Converters.kt           # Type converters para Room
+            │   └── Daos.kt                 # Data Access Objects (consultas DB)
+            │
+            ├── model/                      # Modelos de datos
+            │   ├── Models.kt                # Entidades / data classes
+            │   └── User.kt                  # Modelo de usuario
+            │
+            ├── repository/                  # Repositorios (puente entre data y viewmodel)
+            │   └── Repositories.kt
+            │
+            ├── ui/                          # Capa de presentación (View)
+            │   ├── screens/
+            │   │   ├── CartScreen.kt
+            │   │   ├── LoginScreen.kt
+            │   │   ├── MenuScreen.kt
+            │   │   ├── OrderStatusScreen.kt
+            │   │   ├── PaymentScreen.kt
+            │   │   ├── RegisterScreen.kt
+            │   │   ├── ScannerScreen.kt
+            │   │   └── SplashScreen.kt
+            │   └── theme/
+            │       └── Theme.kt             # Estilos y tema de Jetpack Compose
+            │
+            ├── util/
+            │   └── MockData.kt              # Datos de prueba / utilidades
+            │
+            ├── viewmodel/                    # Capa de lógica de presentación (ViewModel)
+            │   ├── CartViewModel.kt
+            │   ├── MenuViewModel.kt
+            │   └── PaymentViewModel.kt
+            │
+            └── MainActivity.kt              # Punto de entrada de la aplicación
+
 ```
 
 ## Diseño Visual
